@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Confirmation — Ronin Traq</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: #121A21;
+      color: #F5F0E6;
+      font-family: 'Playfair Display', serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 30px;
+      text-align: center;
+    }
+
+    .logo {
+      width: 80px;
+      height: 80px;
+      margin-bottom: 24px;
+      filter: invert(72%) sepia(40%) saturate(600%) hue-rotate(340deg);
+    }
+
+    h1 {
+      font-size: 13px;
+      letter-spacing: 5px;
+      color: #F1A85B;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      font-size: 10px;
+      letter-spacing: 3px;
+      color: rgba(241,168,91,0.6);
+      margin-bottom: 48px;
+    }
+
+    .card {
+      background: rgba(0,0,0,0.5);
+      border: 1px solid rgba(241,168,91,0.3);
+      border-radius: 20px;
+      padding: 36px 30px;
+      max-width: 380px;
+      width: 100%;
+    }
+
+    .icon { font-size: 40px; margin-bottom: 20px; }
+
+    .card h2 {
+      font-size: 22px;
+      color: #FFD97A;
+      letter-spacing: 2px;
+      margin-bottom: 12px;
+    }
+
+    .card p {
+      font-size: 14px;
+      line-height: 24px;
+      color: #A5AAB0;
+      margin-bottom: 28px;
+    }
+
+    .btn {
+      display: inline-block;
+      background: #F1A85B;
+      color: #121A21;
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 2px;
+      padding: 16px 32px;
+      border-radius: 14px;
+      text-decoration: none;
+      width: 100%;
+    }
+
+    .btn:hover { background: #FFD97A; }
+
+    .error { color: #E2725B; border-color: rgba(226,114,91,0.3); }
+    .error h2 { color: #E2725B; }
+
+    .footer {
+      margin-top: 40px;
+      font-size: 10px;
+      letter-spacing: 1px;
+      color: rgba(255,255,255,0.2);
+    }
+  </style>
+</head>
+<body>
+  <p class="subtitle">LA VOIE DU GUERRIER</p>
+
+  <div class="card" id="card">
+    <div class="icon">⚔️</div>
+    <h2 id="title">CONFIRMATION EN COURS</h2>
+    <p id="message">Ouverture de l'application...</p>
+    <a href="#" class="btn" id="btn" style="display:none">OUVRIR RONIN TRAQ</a>
+  </div>
+
+  <p class="footer">RONIN TRAQ © 2026</p>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const code = params.get('code');
+    const btn = document.getElementById('btn');
+    const title = document.getElementById('title');
+    const message = document.getElementById('message');
+
+    if (code) {
+      const deepLink = 'lavoieduguerrier://auth/confirm?code=' + encodeURIComponent(code);
+
+      // Tente d'ouvrir l'app immédiatement
+      window.location.href = deepLink;
+
+      // Affiche le bouton après 1.5s si le redirect n'a pas fonctionné (desktop / app non installée)
+      setTimeout(function () {
+        title.textContent = 'COMPTE CONFIRMÉ';
+        message.textContent = 'Ton compte a été validé. Appuie sur le bouton pour ouvrir Ronin Traq.';
+        btn.href = deepLink;
+        btn.style.display = 'block';
+      }, 1500);
+    } else {
+      title.textContent = 'LIEN INVALIDE';
+      message.textContent = 'Ce lien de confirmation est invalide ou a déjà été utilisé. Retourne dans l\'application pour en demander un nouveau.';
+      document.getElementById('card').classList.add('error');
+    }
+  </script>
+</body>
+</html>
