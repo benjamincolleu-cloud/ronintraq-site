@@ -1,0 +1,8 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "fr.lavoieduguerrier.app",
+    "sha256_cert_fingerprints": ["3A:BF:AD:06:7C:9B:99:5E:EF:09:BB:EB:AA:98:E8:9D:B3:18:CC:77:F8:6D:CC:31:0D:1B:FC:33:96:E7:8B:40"]
+  }
+}]
